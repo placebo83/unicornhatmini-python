@@ -6,7 +6,7 @@ from colorsys import hsv_to_rgb
 from unicornhatmini import UnicornHATMini
 
 print("""
-Scroll pHAT HD: Clock
+Unicorn HAT Mini: Clock
 Displays hours and minutes in text,
 plus a seconds progress bar.
 Press Ctrl+C to exit!
