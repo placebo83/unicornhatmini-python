@@ -169,3 +169,45 @@ if __name__ == "__main__":
                 unicornhatmini.set_pixel(x, y, r, g, b)
         unicornhatmini.show()
         time.sleep(1.0 / 60)
+        
+    def write_string(string, x=0, y=0, font=None, letter_spacing=1, brightness=1.0, monospaced=False, fill_background=False):
+        """Write a string to the buffer. Calls draw_char for each character.
+        :param string: The string to display.
+        :param x: Offset x - distance of string from left of the buffer
+        :param y: Offset y - distance of string from right of the buffer
+        :param letter_spacing: Distance (in pixels) between characters
+        :param font: Font to use, defualt is to use the one specified with `set_font`
+        :param brightness: Brightness of the pixels that comprise the text, from 0.0 to 1.0
+        :param monospaced: Whether to space characters evenly using `font.width`
+        :param fill_background: Not used
+        
+        """
+        global buf
+
+        o_x = x
+
+        if font is None:
+            if _font is None:
+                raise ValueError('You must specify or set a font.')
+            font = _font
+
+        string_width = calculate_string_width(
+            string,
+            font,
+            letter_spacing,
+            monospaced)
+
+        buf = grow_buffer(x + string_width, y + font.height)
+
+        for char in string:
+            x, _ = draw_char(
+                x,
+                y,
+                char,
+                font=font,
+                brightness=brightness,
+                monospaced=monospaced)
+
+            x += 1 + letter_spacing
+
+        return x - o_x
