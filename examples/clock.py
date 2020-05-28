@@ -1,15 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import time
+import font5x5
 
 from colorsys import hsv_to_rgb
 from unicornhatmini import UnicornHATMini
-from unicornhatmini.fonts import font5x5
 
 print("""
 Unicorn HAT Mini: Clock
+
 Displays hours and minutes in text,
 plus a seconds progress bar.
+
 Press Ctrl+C to exit!
 """)
 
@@ -24,6 +26,7 @@ BRIGHTNESS = 0.3
 #   (e.g. if you're using it in a Pimoroni Scroll Bot)
 # unicornhatmini.rotate(degrees=180)
 
+unicornhatmini = UnicornHATMini()
 while True:
     unicornhatmini.clear()
 
@@ -62,16 +65,16 @@ while True:
 
     else:
         # Just display a simple dot
-        unicornhatmini.set_pixel(int(seconds_progress), 6, BRIGHTNESS)
+        unicornhatmini.set_pixel(int(seconds_progress), 6, 255, 0, 0)
 
     # Display the time (HH:MM) in a 5x5 pixel font
-    unicornhatmini.write_string(
-        time.strftime("%H:%M"),
-        x=0,                   # Align to the left of the buffer
-        y=0,                   # Align to the top of the buffer
-        font=font5x5,          # Use the font5x5 font we imported above
-        brightness=BRIGHTNESS  # Use our global brightness value
-    )
+#    unicornhatmini.write_string(
+#        time.strftime("%H:%M"),
+#        x=0,                   # Align to the left of the buffer
+#        y=0,                   # Align to the top of the buffer
+#        font=font5x5,          # Use the font5x5 font we imported above
+#        brightness=BRIGHTNESS  # Use our global brightness value
+#    )
 
     # int(time.time()) % 2 will tick between 0 and 1 every second.
     # We can use this fact to clear the ":" and cause it to blink on/off
@@ -79,7 +82,7 @@ while True:
     # To do this we clear a rectangle 8 pixels along, 0 down,
     # that's 1 pixel wide and 5 pixels tall.
     if int(time.time()) % 2 == 0:
-        unicornhatmini.clear_rect(8, 0, 1, 5)
+        unicornhatmini.clear()
 
     # Display our time and sleep a bit. Using 1 second in time.sleep
     # is not recommended, since you might get quite far out of phase
