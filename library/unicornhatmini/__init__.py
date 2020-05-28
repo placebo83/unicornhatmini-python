@@ -157,21 +157,9 @@ class UnicornHATMini():
         else:
             return _COLS, _ROWS
 
-
-if __name__ == "__main__":
-    unicornhatmini = UnicornHATMini()
-
-    while True:
-        for y in range(_ROWS):
-            for x in range(_COLS):
-                hue = (time.time() / 4.0) + (x / float(_COLS * 2)) + (y / float(_ROWS))
-                r, g, b = [int(c * 255) for c in hsv_to_rgb(hue, 1.0, 1.0)]
-                unicornhatmini.set_pixel(x, y, r, g, b)
-        unicornhatmini.show()
-        time.sleep(1.0 / 60)
-        
     def write_string(string, x=0, y=0, font=None, letter_spacing=1, brightness=1.0, monospaced=False, fill_background=False):
         """Write a string to the buffer. Calls draw_char for each character.
+        
         :param string: The string to display.
         :param x: Offset x - distance of string from left of the buffer
         :param y: Offset y - distance of string from right of the buffer
@@ -211,3 +199,17 @@ if __name__ == "__main__":
             x += 1 + letter_spacing
 
         return x - o_x
+
+    
+if __name__ == "__main__":
+    unicornhatmini = UnicornHATMini()
+
+    while True:
+        for y in range(_ROWS):
+            for x in range(_COLS):
+                hue = (time.time() / 4.0) + (x / float(_COLS * 2)) + (y / float(_ROWS))
+                r, g, b = [int(c * 255) for c in hsv_to_rgb(hue, 1.0, 1.0)]
+                unicornhatmini.set_pixel(x, y, r, g, b)
+        unicornhatmini.show()
+        time.sleep(1.0 / 60)
+        
