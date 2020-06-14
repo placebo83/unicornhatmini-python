@@ -74,7 +74,7 @@ offset_x = 0
 
 while True:
 
-    if Y > 4:
+    if Y > 5:
         Y = 0
 
     if Y == 0:
