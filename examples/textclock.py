@@ -97,7 +97,7 @@ while True:
     
     if Y == 5:
 
-            for y in range(display_height):
+        for y in range(display_height):
             for x in range(display_width):
                 hue = (time.time() / 10.0) + (x / float(display_width * 2))
                 r, g, b = [int(c * 255) for c in hsv_to_rgb(hue, 1.0, 1.0)]
