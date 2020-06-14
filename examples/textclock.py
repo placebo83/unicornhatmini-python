@@ -4,6 +4,8 @@ import os
 import time, datetime
 import RPi.GPIO as GPIO
 
+from colorsys import hsv_to_rgb
+
 from PIL import Image, ImageDraw, ImageFont
 from unicornhatmini import UnicornHATMini
 
@@ -92,8 +94,19 @@ while True:
         image = Image.new('P', (text_width + display_width + display_width, display_height), 0)
         draw = ImageDraw.Draw(image)
         draw.text((display_width, -1), text, font=font, fill=255)
-    else:
+    
+    if Y == 5:
 
+            for y in range(display_height):
+            for x in range(display_width):
+                hue = (time.time() / 10.0) + (x / float(display_width * 2))
+                r, g, b = [int(c * 255) for c in hsv_to_rgb(hue, 1.0, 1.0)]
+                if image.getpixel((x + offset_x, y)) == 255:
+                    unicornhatmini.set_pixel(x, y, r, g, b)
+                else:
+                    unicornhatmini.set_pixel(x, y, 0, 0, 0)
+    if Y < 5:           
+        
         for y in range(display_height):
             for x in range(display_width):
                 if image.getpixel((x + offset_x, y)) == 255:
@@ -114,7 +127,7 @@ while True:
     unicornhatmini.show()
     time.sleep(0.05)
 
-# Last edited on June 13th 2020
+# Last edited on 14-06-2020
 # added color chnage function to Y button
 # run sudo crontab -e
 # add
